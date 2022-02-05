@@ -45,11 +45,11 @@ export async function getUser(req, res) {
         await db
           .collection("sessions")
           .updateOne({ userId: user._id }, { $set: { token } });
-        return res.status(200).send(token);
+        return res.status(200).send({ token, name: user.name });
       }
 
       await db.collection("sessions").insertOne({ token, userId: user._id });
-      res.status(200).send(token);
+      res.status(200).send({ token, name: user.name });
     } else {
       res.sendStatus(401);
     }

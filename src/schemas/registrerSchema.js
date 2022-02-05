@@ -1,9 +1,10 @@
 import joi from "joi";
 
 const registerSchema = joi.object({
+  date: joi.date().required(),
   money: joi.number().required(),
   description: joi.string().required(),
-  type: joi.string().required(),
+  type: joi.string().required().valid("income", "outflow"),
 });
 
 export default registerSchema;

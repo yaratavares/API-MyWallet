@@ -5,7 +5,7 @@ import userSignupValideMiddleware from "../middlewares/userSignupValideMiddlewar
 
 const userRouter = Router();
 
-userRouter.get("/auth/login", userLoginValideMiddleware, getUser);
+userRouter.post("/auth/login", userLoginValideMiddleware, getUser);
 userRouter.post("/auth/signup", userSignupValideMiddleware, postNewUser);
 
 export default userRouter;
