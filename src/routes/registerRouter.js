@@ -1,5 +1,6 @@
 import { Router } from "express";
 import {
+  deleteRegister,
   getRegister,
   postRegister,
 } from "../controllers/registerController.js";
@@ -11,5 +12,6 @@ const registerRouter = Router();
 registerRouter.use(tokenValidationMiddleware);
 registerRouter.get("/registers", getRegister);
 registerRouter.post("/registers", registerValideMiddleware, postRegister);
+registerRouter.delete("/registers/:id", deleteRegister);
 
 export default registerRouter;

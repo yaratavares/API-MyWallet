@@ -39,7 +39,6 @@ export async function getUser(req, res) {
       const userIsConnect = await db
         .collection("sessions")
         .findOne({ userId: user._id });
-      console.log(userIsConnect);
 
       if (userIsConnect) {
         await db
