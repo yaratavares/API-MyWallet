@@ -1,16 +1,11 @@
 import db from "../db.js";
-import jwt from "jsonwebtoken";
 
-export default async function tokenValidationMiddleware(req, res, next) {
+export default async function tokenValideMiddleware(req, res, next) {
   const { authorization } = req.headers;
 
   const token = authorization?.replace("Bearer ", "");
-  const keySecret = process.env.JWT_SECRET;
 
-  try {
-    const dados = jwt.verify(token, keySecret);
-    console.log(dados);
-  } catch {
+  if (!token) {
     return res.sendStatus(401);
   }
 

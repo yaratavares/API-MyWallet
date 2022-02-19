@@ -24,7 +24,7 @@ export async function postNewUser(req, res) {
   }
 }
 
-export async function getUser(req, res) {
+export async function createUserSession(req, res) {
   const { email, password } = req.body;
 
   try {

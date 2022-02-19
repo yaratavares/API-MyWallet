@@ -1,4 +1,5 @@
 import { ObjectId } from "mongodb";
+import dayjs from "dayjs";
 import db from "../db.js";
 
 export async function postRegister(req, res) {
@@ -6,9 +7,11 @@ export async function postRegister(req, res) {
   const { user } = res.locals;
 
   try {
-    await db
-      .collection("registers")
-      .insertOne({ ...register, userId: user._id });
+    await db.collection("registers").insertOne({
+      ...register,
+      date: dayjs().format("DD/MM"),
+      userId: user._id,
+    });
 
     res.sendStatus(201);
   } catch {
@@ -60,7 +63,6 @@ export async function updateRegister(req, res) {
   const { user } = res.locals;
   const register = req.body;
 
-  console.log(user);
   if (id) {
     try {
       const registerExist = await db
@@ -70,10 +72,7 @@ export async function updateRegister(req, res) {
       if (registerExist) {
         await db
           .collection("registers")
-          .updateOne(
-            { _id: new ObjectId(id) },
-            { $set: { ...register, userId: user._id } }
-          );
+          .updateOne({ _id: new ObjectId(id) }, { $set: { ...register } });
         res.send(200);
       } else {
         res.sendStatus(400);
